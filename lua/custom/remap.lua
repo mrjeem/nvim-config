@@ -34,7 +34,7 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help)
 vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder)
 vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder)
 vim.keymap.set("n", "<leader>wl", function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end)
 vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition)
 
@@ -79,7 +79,7 @@ vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/the
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
-	vim.cmd("so")
+    vim.cmd("so")
 end)
 
 -- Rename
@@ -88,11 +88,11 @@ vim.keymap.set("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>")
 -- Highlight when yanking (copying) text
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+    desc = "Highlight when yanking (copying) text",
+    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- Harpoon
@@ -103,32 +103,32 @@ vim.keymap.set("n", "<leader>h", ui.toggle_quick_menu)
 vim.keymap.set("n", "<leader>ha", mark.add_file)
 
 vim.keymap.set("n", "<leader>1", function()
-	ui.nav_file(1)
+    ui.nav_file(1)
 end)
 vim.keymap.set("n", "<leader>2", function()
-	ui.nav_file(2)
+    ui.nav_file(2)
 end)
 vim.keymap.set("n", "<leader>3", function()
-	ui.nav_file(3)
+    ui.nav_file(3)
 end)
 vim.keymap.set("n", "<leader>4", function()
-	ui.nav_file(4)
+    ui.nav_file(4)
 end)
 vim.keymap.set("n", "<leader>5", function()
-	ui.nav_file(5)
+    ui.nav_file(5)
 end)
 vim.keymap.set("n", "<leader>6", function()
-	ui.nav_file(6)
+    ui.nav_file(6)
 end)
 vim.keymap.set("n", "<leader>7", function()
-	ui.nav_file(7)
+    ui.nav_file(7)
 end)
 vim.keymap.set("n", "<leader>8", function()
-	ui.nav_file(8)
+    ui.nav_file(8)
 end)
 vim.keymap.set("n", "<leader>9", function()
-	ui.nav_file(9)
+    ui.nav_file(9)
 end)
 vim.keymap.set("n", "<leader>0", function()
-	ui.nav_file(10)
+    ui.nav_file(10)
 end)
