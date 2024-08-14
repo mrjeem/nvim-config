@@ -1,11 +1,11 @@
 return {
-    {
-        "mbbill/undotree",
-    },
-    {
-        "tpope/vim-fugitive",
-    },
-    {
-        "preservim/tagbar",
-    },
+	{
+		"mbbill/undotree",
+	},
+	{
+		"tpope/vim-fugitive",
+	},
+	{
+		"preservim/tagbar",
+	},
 }
