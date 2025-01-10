@@ -25,6 +25,7 @@ return {
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "asm_lsp",
+                "clangd",
                 "lua_ls",
                 "rust_analyzer",
                 "ruff_lsp",
@@ -33,7 +34,11 @@ return {
             },
             handlers = {
                 function(server_name)
-                    require("lspconfig")[server_name].setup({})
+                    require("lspconfig")[server_name].setup({
+                        on_attach = function(client, bufnr)
+                            require("nvim-navic").attach(client, bufnr)
+                        end
+                    })
                     capabilities = capabilities
                 end,
                 ["lua_ls"] = function()

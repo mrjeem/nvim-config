@@ -23,6 +23,8 @@ vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})
 vim.keymap.set("n", "<leader>fsp", "<cmd>Telescope spell_suggest<CR>", {})
 
 -- LSP
+
+vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
