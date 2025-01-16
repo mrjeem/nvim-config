@@ -26,9 +26,10 @@ return {
             ensure_installed = {
                 "asm_lsp",
                 "clangd",
+                "json_lsp",
                 "lua_ls",
                 "rust_analyzer",
-                "ruff_lsp",
+                "ruff",
                 "pyright",
                 "gopls"
             },

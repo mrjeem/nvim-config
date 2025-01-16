@@ -9,7 +9,12 @@ return {
         require('lualine').setup({
             winbar = {
                 lualine_c = { function()
-                    return navic.get_location()
+                    local location = navic.get_location()
+                    if location ~= "" then
+                        return location
+                    else
+                        return "󰊕"
+                    end
                 end
                 }
             }
