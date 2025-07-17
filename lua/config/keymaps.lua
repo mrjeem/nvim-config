@@ -1,4 +1,44 @@
--- Leader
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+vim.g['quarto_is_r_mode'] = nil
+vim.g['reticulate_running'] = false
+local keymap = vim.keymap -- for conciseness
+local ms = vim.lsp.protocol.Methods
+
+-- increment/decrement numbers
+keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
+keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+
+-- window management
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
+keymap.set("n", "<leader>sh", "<C-w>h", { desc = "Split window horizontally" }) -- split window horizontally
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- make split windows equal width & height
+keymap.set("n", "<leader>sx", "<C-w>x", { desc = "Close current split" }) -- close current split window
+
+-- replace current word on
+keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace current word" })
+
+-- move selected liens up or down
+keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Bold: position cursor between **
+vim.keymap.set('v', '<leader>b', 'c****<Esc>hhp')
+
+-- Italic: position cursor between *
+vim.keymap.set('v', '<leader>i', 'c**<Esc>hp')
+
+-- Both: position cursor between ***
+vim.keymap.set('v', '<leader>bi', 'c******<Esc>hhhp')
+
+vim.keymap.set("n", "j", "gj", { noremap = true, silent = true })
+vim.keymap.set("n", "k", "gk", { noremap = true, silent = true })
+vim.keymap.set("v", "j", "gj", { noremap = true, silent = true })
+vim.keymap.set("v", "k", "gk", { noremap = true, silent = true })
+
+-- CUSTOM --
+-- Netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- Tagbar
@@ -8,19 +48,7 @@ vim.keymap.set("n", "<leader>pt", ":TagbarToggle<Cr>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Jump to 1st line of the file
-vim.keymap.set("n", "H", "<cmd>0<CR>")
-
--- Telescoe
-local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fwf", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fa", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set("n", "<leader>ft", builtin.current_buffer_tags, {})
-vim.keymap.set("n", "<leader>fr", builtin.lsp_references, {})
-
-vim.keymap.set("n", "<leader>fsp", "<cmd>Telescope spell_suggest<CR>", {})
+vim.keymap.set({ "n", "v" }, "H", "<cmd>0<CR>")
 
 -- LSP
 
@@ -40,12 +68,6 @@ vim.keymap.set("n", "<leader>wl", function()
 end)
 vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition)
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
-vim.keymap.set("n", "J", "mzJ`z")
-
--- Fugitive
 vim.keymap.set("n", "<leader>gs", "<cmd>Git stage *<CR>")
 vim.keymap.set("n", "<leader>gc", "<cmd>Git commit *<CR>")
 
@@ -70,8 +92,7 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
--- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
@@ -91,50 +112,5 @@ end)
 -- Rename
 vim.keymap.set("n", "<leader>ra", "<cmd>lua vim.lsp.buf.rename()<CR>")
 
--- Highlight when yanking (copying) text
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-    desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
-})
-
--- Harpoon
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
-
-vim.keymap.set("n", "<leader>h", ui.toggle_quick_menu)
-vim.keymap.set("n", "<leader>ha", mark.add_file)
-
-vim.keymap.set("n", "<leader>1", function()
-    ui.nav_file(1)
-end)
-vim.keymap.set("n", "<leader>2", function()
-    ui.nav_file(2)
-end)
-vim.keymap.set("n", "<leader>3", function()
-    ui.nav_file(3)
-end)
-vim.keymap.set("n", "<leader>4", function()
-    ui.nav_file(4)
-end)
-vim.keymap.set("n", "<leader>5", function()
-    ui.nav_file(5)
-end)
-vim.keymap.set("n", "<leader>6", function()
-    ui.nav_file(6)
-end)
-vim.keymap.set("n", "<leader>7", function()
-    ui.nav_file(7)
-end)
-vim.keymap.set("n", "<leader>8", function()
-    ui.nav_file(8)
-end)
-vim.keymap.set("n", "<leader>9", function()
-    ui.nav_file(9)
-end)
-vim.keymap.set("n", "<leader>0", function()
-    ui.nav_file(10)
-end)
+-- New line in insert mode
+vim.keymap.set("i", "<CR>", "C-j")
