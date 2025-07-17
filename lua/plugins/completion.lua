@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	dependencies = {
-        "hrsh7th/nvim-cmp",
+		"hrsh7th/nvim-cmp",
 		"mikavilpas/blink-ripgrep.nvim",
 		{
 			"L3MON4D3/LuaSnip",
@@ -42,9 +42,9 @@ return {
 	opts = {
 		--
 		keymap = {
-            preset = "default",
-            ['<C-m>'] = { 'select_and_accept' },
-        },
+			preset = "default",
+			["<C-m>"] = { "select_and_accept" },
+		},
 		appearance = {
 			nerd_font_variant = "mono",
 		},
@@ -162,4 +162,3 @@ return {
 	},
 	opts_extend = { "sources.default" },
 }
-
