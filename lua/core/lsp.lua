@@ -1,15 +1,3 @@
-vim.lsp.enable({
-	-- "html",
-	-- "cssls",
-	-- "tailwindcss",
-	"lua_ls",
-	"basedpyright",
-	"bashls",
-	"clangd",
-    -- "gopls",
-    "ruff",
-})
-
 vim.diagnostic.config({
 	virtual_text = { current_line = true, severity = { min = "HINT", max = "WARN" } },
 	virtual_lines = { current_line = true, severity = { min = "ERROR" } },

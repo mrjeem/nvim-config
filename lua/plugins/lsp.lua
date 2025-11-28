@@ -6,9 +6,6 @@ return {
         { "antosha417/nvim-lsp-file-operations", config = true },
     },
     config = function()
-        -- import lspconfig plugin
-        local lspconfig = require("lspconfig")
-
         -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -71,52 +68,15 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- configure html server
-        lspconfig["html"].setup({
-            capabilities = capabilities,
-            --      on_attach = on_attach,
-        })
+        local servers = {"html", "cssls", "tailwindcss", "pyright", "bashls", "jsonls", "yamlls", "marksman", "clangd"}
+        for _, server in ipairs(servers) do
+            vim.lsp.config(server, {
+                capabilities = capabilities,
+                -- on_attach = on_attach,
+            })
+            vim.lsp.enable(server)
+        end
 
-        -- configure css server
-        lspconfig["cssls"].setup({
-            capabilities = capabilities,
-            --      on_attach = on_attach,
-        })
-
-        -- configure tailwindcss server
-        lspconfig["tailwindcss"].setup({
-            capabilities = capabilities,
-            --      on_attach = on_attach,
-        })
-
-        -- configure python server
-        lspconfig["pyright"].setup({
-            capabilities = capabilities,
-            --      on_attach = on_attach,
-        })
-        -- configure bash server
-        lspconfig["bashls"].setup({
-            capabilities = capabilities,
-            --        on_attach = on_attach,
-        })
-        -- configure json server
-        lspconfig["jsonls"].setup({
-            capabilities = capabilities,
-            --        on_attach = on_attach,
-        })
-        -- configure yaml server
-        lspconfig["yamlls"].setup({
-            capabilities = capabilities,
-            --        on_attach = on_attach,
-        })
-        lspconfig["marksman"].setup({
-            capabilities = capabilities,
-            --            on_attach = on_attach,
-            filetypes = { "markdown", "quarto" },
-        })
-        lspconfig["clangd"].setup({
-            capabilities = capabilities,
-        })
         vim.api.nvim_create_user_command("LtexLangChangeLanguage", function(data)
             local language = data.fargs[1]
             local bufnr = vim.api.nvim_get_current_buf()
@@ -138,7 +98,7 @@ return {
             force = true,
         })
         -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
+        vim.lsp.config("lua_ls", {
             capabilities = capabilities,
             --      on_attach = on_attach,
             settings = { -- custom settings for lua
@@ -157,5 +117,6 @@ return {
                 },
             },
         })
+        vim.lsp.enable("lua_ls")
     end,
 }
