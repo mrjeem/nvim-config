@@ -59,8 +59,6 @@ return {
             end,
         })
 
-        -- used to enable autocompletion (assign to every lsp server config)
-        local capabilities = cmp_nvim_lsp.default_capabilities()
         -- Change the Diagnostic symbols in the sign column (gutter)
         local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
         for type, icon in pairs(signs) do
@@ -68,35 +66,18 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local servers = {"html", "cssls", "tailwindcss", "pyright", "bashls", "jsonls", "yamlls", "marksman", "clangd"}
+        -- used to enable autocompletion (assign to every lsp server config)
+        local capabilities = cmp_nvim_lsp.default_capabilities()
+        local servers = {"html", "cssls", "tailwindcss", "pyright", "bashls", "jsonls", "yamlls", "marksman", "clangd", "ts_ls"}
+        vim.lsp.config("tsserver", {capabilities=capabilities}) -- Idk why this requires to be set up separatly
         for _, server in ipairs(servers) do
             vim.lsp.config(server, {
                 capabilities = capabilities,
                 -- on_attach = on_attach,
             })
-            vim.lsp.enable(server)
         end
+        vim.lsp.enable(servers)
 
-        vim.api.nvim_create_user_command("LtexLangChangeLanguage", function(data)
-            local language = data.fargs[1]
-            local bufnr = vim.api.nvim_get_current_buf()
-            local client = vim.lsp.get_active_clients({ bufnr = bufnr, name = "ltex" })
-            if #client == 0 then
-                vim.notify("No ltex client attached")
-            else
-                client = client[1]
-                client.config.settings = {
-                    ltex = {
-                        language = language,
-                    },
-                }
-                client.notify("workspace/didChangeConfiguration", client.config.settings)
-                vim.notify("Language changed to " .. language)
-            end
-        end, {
-            nargs = 1,
-            force = true,
-        })
         -- configure lua server (with special settings)
         vim.lsp.config("lua_ls", {
             capabilities = capabilities,
